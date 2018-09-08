@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>Lv.2 | ://Sungju.github.io</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="blockchain,solidity,cryptozombies" />
+    
+    <meta name="description" content="주소와 매핑데이터베이스에 저장된 좀비들에게 주인을 설정하여 멀티 플레이어 게임으로 만든다.mapping과 address 두 자료형이 필요하다. 주소이더리움 블록체인은 은행 계좌와 같은 계정 들로 이뤄져있다. 계정은 이더리움 블록체인상의 통화인 이더 의 잔액을 가진다. 계정을 통해 다른 계정과 이더를 주고 받을 수 있다. 각 계정은 은행 계쫘 번호와 같은 주">
+<meta name="keywords" content="blockchain,solidity,cryptozombies">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lv.2">
+<meta property="og:url" content="http://SungjuDoh.github.io/2018/09/07/cryptozombies_2/index.html">
+<meta property="og:site_name" content=":&#x2F;&#x2F;Sungju.github.io">
+<meta property="og:description" content="주소와 매핑데이터베이스에 저장된 좀비들에게 주인을 설정하여 멀티 플레이어 게임으로 만든다.mapping과 address 두 자료형이 필요하다. 주소이더리움 블록체인은 은행 계좌와 같은 계정 들로 이뤄져있다. 계정은 이더리움 블록체인상의 통화인 이더 의 잔액을 가진다. 계정을 통해 다른 계정과 이더를 주고 받을 수 있다. 각 계정은 은행 계쫘 번호와 같은 주">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-09-08T05:03:31.681Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lv.2">
+<meta name="twitter:description" content="주소와 매핑데이터베이스에 저장된 좀비들에게 주인을 설정하여 멀티 플레이어 게임으로 만든다.mapping과 address 두 자료형이 필요하다. 주소이더리움 블록체인은 은행 계좌와 같은 계정 들로 이뤄져있다. 계정은 이더리움 블록체인상의 통화인 이더 의 잔액을 가진다. 계정을 통해 다른 계정과 이더를 주고 받을 수 있다. 각 계정은 은행 계쫘 번호와 같은 주">
+    
+
+    
+        <link rel="alternate" href="/" title="://Sungju.github.io" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122306363-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">dev diary</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Test1/">Test1</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Test1/Test2/">Test2</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Test1/Test3/">Test3</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/BlockChain/">BlockChain</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-cryptozombies_2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Lv.2
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/09/07/cryptozombies_2/" class="article-date">
+            <time datetime="2018-09-07T12:15:36.396Z" itemprop="datePublished">2018-09-07</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/blockchain/">blockchain</a>, <a class="tag-link" href="/tags/cryptozombies/">cryptozombies</a>, <a class="tag-link" href="/tags/solidity/">solidity</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h3 id="주소와-매핑"><a href="#주소와-매핑" class="headerlink" title="주소와 매핑"></a>주소와 매핑</h3><p>데이터베이스에 저장된 좀비들에게 주인을 설정하여 멀티 플레이어 게임으로 만든다.<br><code>mapping</code>과 <code>address</code> 두 자료형이 필요하다.</p>
+<h4 id="주소"><a href="#주소" class="headerlink" title="주소"></a>주소</h4><p>이더리움 블록체인은 은행 계좌와 같은 <strong>계정</strong> 들로 이뤄져있다. 계정은 이더리움 블록체인상의 통화인 <strong>이더</strong> 의 잔액을 가진다. 계정을 통해 다른 계정과 이더를 주고 받을 수 있다.</p>
+<p>각 계정은 은행 계쫘 번호와 같은 <strong>주소</strong> 를 가지고 있다. 주소는 특정 계정을 가리키는 고유 식별자이다.</p>
+<p><em>“ 주소는 특정 유저(혹은 스마트 컨트랙트)가 소유한다. “</em></p>
+<h4 id="매핑"><a href="#매핑" class="headerlink" title="매핑"></a>매핑</h4><p>솔리디티에서 구조화된 데이터를 저장하는 또다른 방법이다.</p>
+<p>다음과 같이 매핑을 정의할 수 있다.<br><code>mapping (address =&gt; uint) public accountaBallance</code></p>
+<p>매핑은 기본적으로 key-value 저장소로, 데이터를 저장하고 검색하는 데 이용된다.<br><code>key =&gt; value</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.19</span>;</span><br><span class="line"></span><br><span class="line">contract ZombieFactory &#123;</span><br><span class="line"></span><br><span class="line">    event NewZombie(uint zombieId, string name, uint dna);</span><br><span class="line"></span><br><span class="line">    uint dnaDigits = <span class="number">16</span>;</span><br><span class="line">    uint dnaModulus = <span class="number">10</span> ** dnaDigits;</span><br><span class="line"></span><br><span class="line">    struct Zombie &#123;</span><br><span class="line">        string name;</span><br><span class="line">        uint dna;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Zombie[] public zombies;</span><br><span class="line"></span><br><span class="line">    mapping (<span class="function"><span class="params">uint</span> =&gt;</span> address) public zombieToOwner;</span><br><span class="line">    <span class="comment">// 좀비 id =&gt; 좀비 소유자 주소</span></span><br><span class="line">    mapping (<span class="function"><span class="params">address</span> =&gt;</span> uint) ownerZombieCount;</span><br><span class="line">    <span class="comment">// 좀비 소유자 주소 =&gt; 좀비 수</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_createZombie</span>(<span class="params">string _name, uint _dna</span>) <span class="title">private</span> </span>&#123;</span><br><span class="line">        uint id = zombies.push(Zombie(_name, _dna)) - <span class="number">1</span>;</span><br><span class="line">        NewZombie(id, _name, _dna);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_generateRandomDna</span>(<span class="params">string _str</span>) <span class="title">private</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        uint rand = uint(keccak256(_str));</span><br><span class="line">        <span class="keyword">return</span> rand % dnaModulus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createRandomZombie</span>(<span class="params">string _name</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        uint randDna = _generateRandomDna(_name);</span><br><span class="line">        _createZombie(_name, randDna);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="msg-sender"><a href="#msg-sender" class="headerlink" title="msg.sender"></a>msg.sender</h3><p>솔리디티에는 모든 함수에서 이용 가능한 특정 <strong>전역 변수</strong> 들이 있다.</p>
+<ul>
+<li>Msg.sender : 현재 함수를 호출한 사람(혹은 스마트 컨트랙트)의 주소(<strong>address</strong>)를 가리키는 변수</li>
+</ul>
+<p>Tip. 솔리디티에서 함수 실행은 항상 외부 호출자가 한다. 따라서 항상 msg.sender의 값은 존재한다. 컨트랙트는 누군가가 컨트랙트의 함수를 호출할 때까지 블록체인 상에서 아무 것도 하지 않는다.</p>
+<p><code>msg.sender</code>를 활용하면, 이더리움 블록체인의 보안성을 이용할 수 있다. 누군가 다른 사람의 데이터를 변경하려면 해당 이더리움 주소와 관련된 개인키를 훔치는 방법 뿐이다.</p>
+<h3 id="require"><a href="#require" class="headerlink" title="require"></a>require</h3><p>특정 조건이 참이 아닐 때 함수가 에러 메시지를 발생하고 실행을 멈춘다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.19</span>;</span><br><span class="line"></span><br><span class="line">contract ZombieFactory &#123;</span><br><span class="line"></span><br><span class="line">    event NewZombie(uint zombieId, string name, uint dna);</span><br><span class="line"></span><br><span class="line">    uint dnaDigits = <span class="number">16</span>;</span><br><span class="line">    uint dnaModulus = <span class="number">10</span> ** dnaDigits;</span><br><span class="line"></span><br><span class="line">    struct Zombie &#123;</span><br><span class="line">        string name;</span><br><span class="line">        uint dna;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Zombie[] public zombies;</span><br><span class="line"></span><br><span class="line">    mapping (<span class="function"><span class="params">uint</span> =&gt;</span> address) public zombieToOwner;</span><br><span class="line">    mapping (<span class="function"><span class="params">address</span> =&gt;</span> uint) ownerZombieCount;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_createZombie</span>(<span class="params">string _name, uint _dna</span>) <span class="title">private</span> </span>&#123;</span><br><span class="line">        uint id = zombies.push(Zombie(_name, _dna)) - <span class="number">1</span>;  <span class="comment">// 새로운 좀비의 id</span></span><br><span class="line">        zombieToOwner[id] = msg.sender; <span class="comment">// 좀비 id =&gt; 좀비 소유자 주소</span></span><br><span class="line">        ownerZombieCount[msg.sender]++; <span class="comment">// 좀비 소유자가 가진 좀비 수 증가</span></span><br><span class="line">        NewZombie(id, _name, _dna);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_generateRandomDna</span>(<span class="params">string _str</span>) <span class="title">private</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        uint rand = uint(keccak256(_str));</span><br><span class="line">        <span class="keyword">return</span> rand % dnaModulus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createRandomZombie</span>(<span class="params">string _name</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(ownerZombieCount[msg.sender] == <span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 유저가 군대에 좀비를 무제한으로 생성하는 것을 방지</span></span><br><span class="line">        uint randDna = _generateRandomDna(_name);</span><br><span class="line">        _createZombie(_name, randDna);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="상속"><a href="#상속" class="headerlink" title="상속"></a>상속</h3><figure class="highlight javascript"><figcaption><span>상속 예시코드</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">contract Doge &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">catchphrase</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">returns</span> (<span class="params">string</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"So Wow CryptoDoge"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract BabyDoge is Doge &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">anotherCatchphrase</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">returns</span> (<span class="params">string</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Such Moon BabyDoge"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위 코드에서 <code>BabyDoge</code> 컨트랙트는 <code>Doge</code> 컨트랙트를 상속한다.<br><code>BabyDoge</code>가 컴파일되어 구축될 때, <code>Doge</code> 컨트랙트에 정의되는 어떤 public 함수에도 접근이 가능하다.</p>
+<p>보통 <strong>부분집합</strong> 관계에서 <strong>상속</strong> 이 사용된다.</p>
+<h3 id="Import"><a href="#Import" class="headerlink" title="Import"></a>Import</h3><p>다수의 파일이 있고, 어떤 파일을 다른 파일로 불러오고 싶을 때 사용한다.<br><code>import &quot;./someothercontract.sol&quot;;</code></p>
+<p>코드가 길어져서 여러 파일로 나누어 정리하고, <code>import</code>라는 키워드로 다른 파일을 불러온다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//zombiefeeding.sol</span></span><br><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.19</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./zombiefactory.sol"</span>;   <span class="comment">// import</span></span><br><span class="line"></span><br><span class="line">contract ZombieFeeding is ZombieFactory &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//zombiefactory.sol</span></span><br><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.19</span>;</span><br><span class="line"></span><br><span class="line">contract ZombieFactory &#123;</span><br><span class="line"></span><br><span class="line">    event NewZombie(uint zombieId, string name, uint dna);</span><br><span class="line"></span><br><span class="line">    uint dnaDigits = <span class="number">16</span>;</span><br><span class="line">    uint dnaModulus = <span class="number">10</span> ** dnaDigits;</span><br><span class="line"></span><br><span class="line">    struct Zombie &#123;</span><br><span class="line">        string name;</span><br><span class="line">        uint dna;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Zombie[] public zombies;</span><br><span class="line"></span><br><span class="line">    mapping (<span class="function"><span class="params">uint</span> =&gt;</span> address) public zombieToOwner;</span><br><span class="line">    mapping (<span class="function"><span class="params">address</span> =&gt;</span> uint) ownerZombieCount;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_createZombie</span>(<span class="params">string _name, uint _dna</span>) <span class="title">private</span> </span>&#123;</span><br><span class="line">        uint id = zombies.push(Zombie(_name, _dna)) - <span class="number">1</span>;</span><br><span class="line">        zombieToOwner[id] = msg.sender;</span><br><span class="line">        ownerZombieCount[msg.sender]++;</span><br><span class="line">        NewZombie(id, _name, _dna);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_generateRandomDna</span>(<span class="params">string _str</span>) <span class="title">private</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        uint rand = uint(keccak256(_str));</span><br><span class="line">        <span class="keyword">return</span> rand % dnaModulus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createRandomZombie</span>(<span class="params">string _name</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(ownerZombieCount[msg.sender] == <span class="number">0</span>);</span><br><span class="line">        uint randDna = _generateRandomDna(_name);</span><br><span class="line">        _createZombie(_name, randDna);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Storage-amp-Memory"><a href="#Storage-amp-Memory" class="headerlink" title="Storage &amp; Memory"></a>Storage &amp; Memory</h3><p>솔리디티에서 변수를 저장할 수 있는 공간</p>
+<ul>
+<li><strong>Storage</strong><br>블록체인 상에 영구적으로 저장되는 변수<br>컴퓨터의 하드 디스크와 비슷하다.</li>
+<li><strong>Memory</strong><br>임시적으로 저장되는 변수로, 컨트랙트 함수에 대한 외부 호출들이 일어나는 사이에 지워진다.<br>컴퓨터의 RAM과 비슷하다.</li>
+</ul>
+<p>대부분의 경우, 이런 키워드를 사용할 필요가 없다.<br>솔리디티에서 자동으로</p>
+<ul>
+<li><strong>상태변수(함수 외부에 선언된 변수) : </strong> <code>storage</code> 로 선언되어, 영구적으로 저장</li>
+<li><strong>함수 내에 선언된 변수 : </strong><code>memory</code> 로 선언되어, 함수 호출이 종료되면 사라짐</li>
+</ul>
+<p>하지만 키워드가 필요한 경우가 있다.</p>
+<ul>
+<li><strong>구조체와 배열</strong><figure class="highlight javascript"><figcaption><span>키워드 사용 코드예시</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">contract SandwichFactory &#123;</span><br><span class="line">  struct Sandwich &#123;</span><br><span class="line">    string name;</span><br><span class="line">    string status;</span><br><span class="line">  &#125; <span class="comment">// 구조체</span></span><br><span class="line"></span><br><span class="line">  Sandwich[] sandwiches;  <span class="comment">// 구조체 배열</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">eatSandwich</span>(<span class="params">uint _index</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    Sandwich storage mySandwich = sandwiches[_index];</span><br><span class="line">    <span class="comment">// `sandwiches[_index]`를 가리키는 포인터</span></span><br><span class="line">    mySandwich.status = <span class="string">"Eaten!"</span>;</span><br><span class="line">    <span class="comment">// 따라서 `sandwiches[_index]`을 영구적으로 변경</span></span><br><span class="line"></span><br><span class="line">    Sandwich memory anotherSandwich = sandwiches[_index + <span class="number">1</span>];</span><br><span class="line">    <span class="comment">// `anotherSandwich`는 단순히 메모리에 데이터를 복사</span></span><br><span class="line"></span><br><span class="line">    anotherSandwich.status = <span class="string">"Eaten!"</span>;</span><br><span class="line">    <span class="comment">// 임시 변수인 `anotherSandwich`를 변경</span></span><br><span class="line">    <span class="comment">// `sandwiches[_index + 1]`에는 아무런 영향을 끼치지 않음</span></span><br><span class="line">    sandwiches[_index + <span class="number">1</span>] = anotherSandwich;</span><br><span class="line">    <span class="comment">// 다른 활용 방안 : 임시 변경한 내용을 블록체인 저장소에 저장</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="함수-접근-제어자"><a href="#함수-접근-제어자" class="headerlink" title="함수 접근 제어자"></a>함수 접근 제어자</h3><ul>
+<li><code>public</code><br>모든 컨트랙트에서 사용 가능</li>
+<li><code>private</code><br>함수가 정의된 컨트랙트에서만 사용 가능</li>
+<li><code>internal</code><br>함수가 정의된 컨트랙트와 이를 상속하는 컨트랙트에서도 사용 가능</li>
+<li><code>external</code><br>컨트랙트 바깥에서만 호출될 수 있고, 컨트랙트 내의 다른 함수에서는 사용 불가.<br>나머지는 <strong>public</strong> 과 동일</li>
+</ul>
+<h3 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h3><p>블록체인 상에 있으면서 소유하지 않은 컨트랙트와 상호작용을 하려면 우선 <strong>interface</strong> 를 정의해야 한다.</p>
+<figure class="highlight javascript"><figcaption><span>interface 정의 예시코드</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">contract NumberInterface &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getNum</span>(<span class="params">address _myAddress</span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint</span>);</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>dapp 코드에 이런 <strong>interface</strong> 를 포함하면 컨트랙트는 다른 컨트랙트에 정의된 함수의 특성, 호출 방법, 리턴 값에 대해 알 수 있다.</p>
+<h3 id="interface-활용하기"><a href="#interface-활용하기" class="headerlink" title="interface 활용하기"></a>interface 활용하기</h3><p><strong>interface</strong> 를 이용하여, 이더리움 블록체인 상의 다른 어떤 컨트랙트와도 상호작용할 수 있다. 이 때, 상호작용하는 함수가 <code>public</code>이나 <code>external</code>로 선언되어 있어야 한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.19</span>;</span><br><span class="line"><span class="comment">//zombiefeeding.sol</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./zombiefactory.sol"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 크립토좀비가 가장 좋아하는 먹이, 크립토키티와 상호작용할 수 있게하는 KittyInterface 정의</span></span><br><span class="line">contract KittyInterface &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getKitty</span>(<span class="params">uint256 _id</span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">    bool isGestating,</span></span></span><br><span class="line"><span class="function"><span class="params">    bool isReady,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 cooldownIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 nextActionAt,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 siringWithId,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 birthTime,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 matronId,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 sireId,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 generation,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 genes</span></span></span><br><span class="line"><span class="function"><span class="params">  </span>);</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">contract</span> <span class="title">ZombieFeeding</span> <span class="title">is</span> <span class="title">ZombieFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  address ckAddress = <span class="number">0x06012c8cf97BEaD5deAe237070F9587f8E7A266d</span>;</span><br><span class="line">  <span class="comment">// 크립토키티 컨트렉트 주소</span></span><br><span class="line">  KittyInterface kittyContract = KittyInterface(ckAddress);</span><br><span class="line">  <span class="comment">// 크립토키티 인터페이스 생성 및 초기화</span></span><br><span class="line">  <span class="comment">// KittyContract가 해당 주소 컨트랙트를 가리킴</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">feedAndMultiply</span>(<span class="params">uint _zombieId, uint _targetDna</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>(msg.sender == zombieToOwner[_zombieId]);</span><br><span class="line">    <span class="comment">// 좀비 주인만 먹이를 줄 수 있도록</span></span><br><span class="line">    Zombie storage myZombie = zombies[_zombieId];</span><br><span class="line">    <span class="comment">// Zombie 구조체 변수를 storage로 선언, 영구 저장</span></span><br><span class="line">    _targetDna = _targetDna % dnaModulus;</span><br><span class="line">    uint newDna = (myZombie.dna + _targetDna) / <span class="number">2</span>;</span><br><span class="line">    _createZombie(<span class="string">"NoName"</span>, newDna);</span><br><span class="line">    <span class="comment">// _createZombie 함수는 ZombieFactory 컨트랙트의 internal 함수</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="다수의-반환값-처리"><a href="#다수의-반환값-처리" class="headerlink" title="다수의 반환값 처리"></a>다수의 반환값 처리</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multipleReturns</span>(<span class="params"></span>) <span class="title">internal</span> <span class="title">returns</span>(<span class="params">uint a, uint b, uint c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>다음과 같이 3개의 값을 반환하는 함수가 있다.<br>이러한 다수의 반환값을 활용하는 방안에는</p>
+<ul>
+<li><p>다수 값 할당</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">processMultipleReturns</span>(<span class="params"></span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">  uint a;</span><br><span class="line">  uint b;</span><br><span class="line">  uint c;</span><br><span class="line">  (a, b, c) = multipleReturns();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>단 하나의 값에만 관심이 있는 경우</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLastReturnValue</span>(<span class="params"></span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">  uint c;</span><br><span class="line">  (,,c) = multipleReturns();</span><br><span class="line">  <span class="comment">// 다른 필드는 빈칸으로 놓으면 됨</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>등이 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// zombiefeeding.sol</span></span><br><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.19</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">"./zombiefactory.sol"</span>;</span><br><span class="line">contract KittyInterface &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getKitty</span>(<span class="params">uint256 _id</span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">    bool isGestating,</span></span></span><br><span class="line"><span class="function"><span class="params">    bool isReady,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 cooldownIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 nextActionAt,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 siringWithId,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 birthTime,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 matronId,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 sireId,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 generation,</span></span></span><br><span class="line"><span class="function"><span class="params">    uint256 genes</span></span></span><br><span class="line"><span class="function"><span class="params">  </span>);</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"><span class="title">contract</span> <span class="title">ZombieFeeding</span> <span class="title">is</span> <span class="title">ZombieFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  address ckAddress = <span class="number">0x06012c8cf97BEaD5deAe237070F9587f8E7A266d</span>;</span><br><span class="line">  KittyInterface kittyContract = KittyInterface(ckAddress);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">feedAndMultiply</span>(<span class="params">uint _zombieId, uint _targetDna, string _species</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>(msg.sender == zombieToOwner[_zombieId]);</span><br><span class="line">    Zombie storage myZombie = zombies[_zombieId];</span><br><span class="line">    _targetDna = _targetDna % dnaModulus;</span><br><span class="line">    uint newDna = (myZombie.dna + _targetDna) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 만약 kitty 라면, DNA 마지막 두 자리로 99 가짐</span></span><br><span class="line">    <span class="keyword">if</span> (keccak256(_species) == keccak256(<span class="string">"kitty"</span>)) &#123;</span><br><span class="line">      newDna = newDna - newDna % <span class="number">100</span> + <span class="number">99</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    _createZombie(<span class="string">"NoName"</span>, newDna);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">feedOnKitty</span>(<span class="params">uint _zombieId, uint _kittyId</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    uint kittyDna;</span><br><span class="line">    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);</span><br><span class="line">    <span class="comment">// 다수의 반환값 중 마지막 반환값에만 관심</span></span><br><span class="line">    <span class="comment">// interface를 통해 getkitty 함수 접근</span></span><br><span class="line">    feedAndMultiply(_zombieId, kittyDna, <span class="string">"kitty"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="web-js-나중에-공부하기"><a href="#web-js-나중에-공부하기" class="headerlink" title="web.js 나중에 공부하기~!"></a>web.js 나중에 공부하기~!</h3><figure class="highlight plain"><figcaption><span>ex1</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">contract testContract&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://SungjuDoh.github.io/2018/09/07/cryptozombies_2/" data-id="cjlryrrvu0000dct9i0ahsygs" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/09/04/cryptozombies_1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Lv.1</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/07/cryptozombies_2/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/BlockChain/">BlockChain</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a></p>
+                            <p class="item-title"><a href="/2018/09/07/cryptozombies_2/" class="title">Lv.2</a></p>
+                            <p class="item-date"><time datetime="2018-09-07T12:15:36.396Z" itemprop="datePublished">2018-09-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/04/cryptozombies_1/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/BlockChain/">BlockChain</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a></p>
+                            <p class="item-title"><a href="/2018/09/04/cryptozombies_1/" class="title">Lv.1</a></p>
+                            <p class="item-date"><time datetime="2018-09-04T11:02:50.633Z" itemprop="datePublished">2018-09-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/02/test1/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Test1/">Test1</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Test1/Test3/">Test3</a></p>
+                            <p class="item-title"><a href="/2018/09/02/test1/" class="title">test1</a></p>
+                            <p class="item-date"><time datetime="2018-09-02T10:08:11.069Z" itemprop="datePublished">2018-09-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/02/test/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Test1/">Test1</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Test1/Test2/">Test2</a></p>
+                            <p class="item-title"><a href="/2018/09/02/test/" class="title">Test</a></p>
+                            <p class="item-date"><time datetime="2018-09-02T07:50:28.428Z" itemprop="datePublished">2018-09-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/02/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Test1/">Test1</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Test1/Test3/">Test3</a></p>
+                            <p class="item-title"><a href="/2018/09/02/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2018-09-02T07:15:23.646Z" itemprop="datePublished">2018-09-02</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test1/">Test1</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Test1/Test2/">Test2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test1/Test3/">Test3</a><span class="category-list-count">2</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptozombies/">cryptozombies</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tags1/">tags1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tags2/">tags2</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/cryptozombies/" style="font-size: 20px;">cryptozombies</a> <a href="/tags/solidity/" style="font-size: 20px;">solidity</a> <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 Sungju Doh</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'sungju-1';
+    
+    
+    var disqus_url = 'http://SungjuDoh.github.io/2018/09/07/cryptozombies_2/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
