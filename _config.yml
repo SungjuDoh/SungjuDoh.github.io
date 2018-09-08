@@ -79,5 +79,5 @@ theme: hueman
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/SungjuDoh/SungjuDoh.github.io.git
+  repo: https://github.com/SungjuDoh/Sungjudoh.github.io.git
   branch: master
