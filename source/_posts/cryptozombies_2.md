@@ -23,7 +23,7 @@ tags:
 솔리디티에서 구조화된 데이터를 저장하는 또다른 방법이다.
 
 다음과 같이 매핑을 정의할 수 있다.
-`mapping (address => uint) public accountaBallance`
+`mapping (address => uint) public accountaBallance;`
 
 매핑은 기본적으로 key-value 저장소로, 데이터를 저장하고 검색하는 데 이용된다.
 `key => value`
