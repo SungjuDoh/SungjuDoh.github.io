@@ -12,18 +12,18 @@
     
         <meta name="keywords" content="blockchain,solidity,cryptozombies" />
     
-    <meta name="description" content="web.js 나중에 공부하기~!ex1123contract testContract&amp;#123;&amp;#125;">
+    <meta name="description" content="Payable 함수제어자 접근 제어자 (Visibility Modifier) : 함수가 언제, 어디서 호출될 수 있는지 제어 private internal public external   상태 제어자 (Visibility Modifier) : 블록체인과 상호작용하는 방법 View : 어떤 데이터도 저장/변경되지 않음 pure : 어떤 데이터도 블록체인에 저">
 <meta name="keywords" content="blockchain,solidity,cryptozombies">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lv.4">
 <meta property="og:url" content="http://SungjuDoh.github.io/2018/09/09/cryptozombies_4/index.html">
 <meta property="og:site_name" content=":&#x2F;&#x2F;Sungju.github.io">
-<meta property="og:description" content="web.js 나중에 공부하기~!ex1123contract testContract&amp;#123;&amp;#125;">
+<meta property="og:description" content="Payable 함수제어자 접근 제어자 (Visibility Modifier) : 함수가 언제, 어디서 호출될 수 있는지 제어 private internal public external   상태 제어자 (Visibility Modifier) : 블록체인과 상호작용하는 방법 View : 어떤 데이터도 저장/변경되지 않음 pure : 어떤 데이터도 블록체인에 저">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-09T09:57:17.836Z">
+<meta property="og:updated_time" content="2018-09-12T09:07:48.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lv.4">
-<meta name="twitter:description" content="web.js 나중에 공부하기~!ex1123contract testContract&amp;#123;&amp;#125;">
+<meta name="twitter:description" content="Payable 함수제어자 접근 제어자 (Visibility Modifier) : 함수가 언제, 어디서 호출될 수 있는지 제어 private internal public external   상태 제어자 (Visibility Modifier) : 블록체인과 상호작용하는 방법 View : 어떤 데이터도 저장/변경되지 않음 pure : 어떤 데이터도 블록체인에 저">
     
 
     
@@ -88,7 +88,7 @@ ga('send', 'pageview');
                                     <a class="main-nav-list-link" href="/">Home</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Test1/">Test1</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Test1/Test3/">Test3</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/기타/">기타</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/기타/java/">java</a></li></ul></li></ul>
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/BlockChain/">BlockChain</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Nodejs/">Nodejs</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/기타/">기타</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/기타/java/">java</a></li></ul></li></ul>
                                     
                                 <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/about/index.html">About</a>
@@ -183,7 +183,47 @@ ga('send', 'pageview');
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h3 id="web-js-나중에-공부하기"><a href="#web-js-나중에-공부하기" class="headerlink" title="web.js 나중에 공부하기~!"></a>web.js 나중에 공부하기~!</h3><figure class="highlight plain"><figcaption><span>ex1</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">contract testContract&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="Payable"><a href="#Payable" class="headerlink" title="Payable"></a>Payable</h3><ul>
+<li><strong>함수제어자</strong><ul>
+<li><strong>접근 제어자 (Visibility Modifier) :</strong> 함수가 언제, 어디서 호출될 수 있는지 제어<ul>
+<li>private</li>
+<li>internal</li>
+<li>public</li>
+<li>external</li>
+</ul>
+</li>
+<li><strong>상태 제어자 (Visibility Modifier) :</strong> 블록체인과 상호작용하는 방법<ul>
+<li>View : 어떤 데이터도 저장/변경되지 않음</li>
+<li>pure : 어떤 데이터도 블록체인에 저장하지 않고, 데이터를 읽지도 않음</li>
+<li>두 함수 모두 컨트랙트 외부에서 호출 시 가스 소모가 없다.</li>
+</ul>
+</li>
+<li><strong>사용자 정의 제어자</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>Payable 제어자</strong><br>일반적인 웹 서버에서 API 함수를 실행할 때에는, 함수 호출을 통해서 US달러나 비트코인을 보낼 수 없다.</p>
+<p>하지만 이더리움에서는 돈(ether), 데이터(Transaction Payload), 컨트랙트 코드 자체 모두가 이더리움 위에 존재하기 때문에, 함수를 실행하는 동시에 컨트랙트에 돈을 지불하는 것이 가능하다.</p>
+<p>함수를 실행하기 위해 컨트랙트에 일정 금액을 지불하는 예시 코드를 살펴보자.<br><figure class="highlight javascript"><figcaption><span>payable 예시코</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">contract OnlineStore &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">buySomething</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 함수 실행에 0.001이더가 보내졌는지 확실히 하기 위해 확인:</span></span><br><span class="line">    <span class="built_in">require</span>(msg.value == <span class="number">0.001</span> ether);</span><br><span class="line">    <span class="comment">// 이더가 보내졌다면, 함수를 호출한 자에게 디지털 아이템을 전달하기 위한 내용 구성</span></span><br><span class="line">    transferThing(msg.sender);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>msg.value</code>는 컨트랙트로 이더가 얼마나 보내졌는 지 확인하는 방법이다.<br>DApp 의 자바스크립트 프론트앤드인 web3.js 에서 다음과 같이 함수를 실행할 때 해당 payable 함수가 실행된다.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OnlineStore.buySomething(&#123;<span class="attr">from</span>: web3.eth.defaultAccount, <span class="attr">value</span>: web3.utils.toWei(<span class="number">0.001</span>)&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><code>value</code> 필드에서 얼마의 이더를 보낼 지 결정하게된다.<br>참고.<br>만약 함수가 <code>payable</code>로 표시되지 않았을때 이더를 보내려 하면, 함수에서 트랜잭션을 거부할 것이다.</p>
+<h3 id="출금하기"><a href="#출금하기" class="headerlink" title="출금하기"></a>출금하기</h3><p>컨트랙트로 이더를 보내면, 해당 컨트랙트의 이더리움 계좌에 이더가 저장된다. 컨트랙트에서 이더를 인출하는 함수를 작성할 수 있다.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">contract GetPaid is Ownable &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">onlyOwner</span> </span>&#123;</span><br><span class="line">    owner.transfer(<span class="keyword">this</span>.balance);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>Ownable</code> 컨트랙트를 import 했다고 가정하고, <code>owner</code>와 <code>onlyOwner</code>를 사용하고 있다.</p>
+<ul>
+<li><code>transfer</code> : 이더를 특정 주소로 전달할 수 있다.</li>
+<li><code>this.balance</code> : 컨트랙트에 저장되어있는 전체 잔액을 반환한다.</li>
+</ul>
+<p>누군가 한 아이템에 대해 초과 지불을 하면, 이더를 되돌려주는 함수도 만들 수 있다.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uint itemFee = <span class="number">0.001</span> ether;</span><br><span class="line">msg.sender.transfer(msg.value - itemFee);</span><br></pre></td></tr></table></figure></p>
+<p>혹은 구매자와 판매자가 존재하는 컨트랙트에서, 누군가 판매자의 아이템을 구매하면 구매자로부터 받은 요금을 판매자에게 전달할 수 있다.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seller.transfer(msg.value);</span><br></pre></td></tr></table></figure></p>
+<h3 id="난수"><a href="#난수" class="headerlink" title="난수"></a>난수</h3><p>솔리디티에서 난수를 만들기에 가장 좋은 방법을 <code>keccak256</code> 해시 함수를 쓰는 것이다.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uint random = uint(keccak256(now, msg.sender, randNonce)) % <span class="number">100</span>;</span><br></pre></td></tr></table></figure></p>
+<p><code>now</code>의 타임스탬프 값, <code>msg.sender</code>, 증가하는 <code>nounce</code>를 받고 있다. <code>nonce</code>는 딱 한 번만 사용되는 숫자로 똑같은 입력으로 두 번 이상 동일한 해시함수를 실행할 수 없게 한다. <code>%100</code> 을 통해 마지막 2자리 숫자만 받고, 이를 통해 0과 99사이의 완전한 난수를 얻을 수 있다.</p>
+<p>하지만 이 메소드는 정직하지 않은 노드의 공격에 취약하다.</p>
+<p>이더리움에서는 컨트랙트의 함수를 실행하면 <strong>트랜잭션(transaction)</strong> 으로서 네트워크의 노드 하나 혹은 여러 노드에 실행을 알린다. 그 후 네트워크의 노드들은 여러 트랜잭션을 모으고. <strong>작업증명(PoW)</strong> 이라는 매우 복잡한 수학적 문제를 풀기 위한 시도를 한다. 그리고서 <strong>블럭(해당 트랜잭션 그룹 + 작업증명)</strong> 으로 네트워크에 배포한다.</p>
+<p>한 노드가 어떤 PoW를 풀면, 다른 노드들은 그 PoW를 풀려는 시도를 멈추고, 해당 노드가 보낸 <strong>트랜잭션 목록이 유효한 것인지</strong> 검증한다. 유효하다면 해당 블록을 받아들이고 <strong>다음 블록</strong> 을 풀기 시작한다.</p>
+<p><strong>이 과정이 우리의 난수 함수를 취약하게 만든다.</strong></p>
+<p>내가 만약 노드를 실행하고 있다면, 나는 <strong>오직 나의 노드에만</strong> 트랜잭션을 알리고 이것을 공유하지 않을 수 있다. 그 후 함수를 실행하고, 유리하지 않은 결과가 나오면, 내가 풀고 있는 다음 블록에 <strong>해당 트랜잭션을 포함하지 않는 것</strong> 을 선택한다. 원하는 결과를 얻을 때까지 무한대로 반복할 수 있고, 이득을 볼 수 있다.</p>
+<p>이더리움에서 난수를 안전하게 만드는 한 가지 방법은 외부의 난수 함수에 접근할 수 있도록 <strong>오라클</strong> (이더리움 외부에서 데이터를 받아오는 안전한 방법 중 하나)을 사용하는 것이다.</p>
+<h3 id="공통-로직-구조-개선하기"><a href="#공통-로직-구조-개선하기" class="headerlink" title="공통 로직 구조 개선하기"></a>공통 로직 구조 개선하기</h3><h3 id="web-js-나중에-공부하기"><a href="#web-js-나중에-공부하기" class="headerlink" title="web.js 나중에 공부하기~!"></a>web.js 나중에 공부하기~!</h3><figure class="highlight plain"><figcaption><span>ex1</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">contract testContract&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         <footer class="article-footer">
@@ -331,6 +371,26 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2018/09/12/nodejs_1/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Web/">Web</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Web/Nodejs/">Nodejs</a></p>
+                            <p class="item-title"><a href="/2018/09/12/nodejs_1/" class="title">nodejs blah blah</a></p>
+                            <p class="item-date"><time datetime="2018-09-12T14:32:08.498Z" itemprop="datePublished">2018-09-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2018/09/10/java_2/" class="thumbnail">
     
     
@@ -408,26 +468,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/09/07/cryptozombies_2/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/BlockChain/">BlockChain</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a></p>
-                            <p class="item-title"><a href="/2018/09/07/cryptozombies_2/" class="title">Lv.2</a></p>
-                            <p class="item-date"><time datetime="2018-09-07T12:15:36.396Z" itemprop="datePublished">2018-09-07</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -437,7 +477,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test1/">Test1</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Test1/Test3/">Test3</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/기타/">기타</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/기타/java/">java</a><span class="category-list-count">2</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/">BlockChain</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BlockChain/Crypto-Zombies-Solidity/">Crypto Zombies (Solidity)</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/Nodejs/">Nodejs</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/기타/">기타</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/기타/java/">java</a><span class="category-list-count">2</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -447,7 +487,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">7</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">8</span></li></ul>
         </div>
     </div>
 
@@ -457,7 +497,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptozombies/">cryptozombies</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/인스턴스변수/">인스턴스변수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/참조변수/">참조변수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/참조형매개변수/">참조형매개변수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/참조형반환타입/">참조형반환타입</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/클래스변수/">클래스변수</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/">blockchain</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptozombies/">cryptozombies</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/인스턴스변수/">인스턴스변수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/참조변수/">참조변수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/참조형매개변수/">참조형매개변수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/참조형반환타입/">참조형반환타입</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/클래스변수/">클래스변수</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -467,7 +507,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/cryptozombies/" style="font-size: 20px;">cryptozombies</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solidity/" style="font-size: 20px;">solidity</a> <a href="/tags/인스턴스변수/" style="font-size: 10px;">인스턴스변수</a> <a href="/tags/참조변수/" style="font-size: 10px;">참조변수</a> <a href="/tags/참조형매개변수/" style="font-size: 10px;">참조형매개변수</a> <a href="/tags/참조형반환타입/" style="font-size: 10px;">참조형반환타입</a> <a href="/tags/클래스변수/" style="font-size: 10px;">클래스변수</a>
+            <a href="/tags/blockchain/" style="font-size: 20px;">blockchain</a> <a href="/tags/cryptozombies/" style="font-size: 20px;">cryptozombies</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/solidity/" style="font-size: 20px;">solidity</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/인스턴스변수/" style="font-size: 10px;">인스턴스변수</a> <a href="/tags/참조변수/" style="font-size: 10px;">참조변수</a> <a href="/tags/참조형매개변수/" style="font-size: 10px;">참조형매개변수</a> <a href="/tags/참조형반환타입/" style="font-size: 10px;">참조형반환타입</a> <a href="/tags/클래스변수/" style="font-size: 10px;">클래스변수</a>
         </div>
     </div>
 
