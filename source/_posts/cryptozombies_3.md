@@ -19,6 +19,54 @@ tags:
 * **외부 의존성**
 따라서, 대개의 경우 DApp의 **중요한 일부를 수정** 할 수 있도록 하는 **함수** 를 만들어놓는 것이 합리적이다.
 
+```javascript
+//zombiefeeding.sol
+pragma solidity ^0.4.19;
+import "./zombiefactory.sol";
+contract KittyInterface {
+  function getKitty(uint256 _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+  );
+}
+contract ZombieFeeding is ZombieFactory {
+
+  KittyInterface kittyContract;
+
+  //크립토키티 컨트랙트 주소를 업데이트 가능하게 하는 메소드 추가
+  //참고)  external 이라서 누구나 크립토키티 컨트렉트의 주소를 바꿀 수 있는 취약점
+  function setKittyContractAddress(address _address) external {
+    kittyContract = KittyInterface(_address);
+  }
+
+  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    Zombie storage myZombie = zombies[_zombieId];
+    _targetDna = _targetDna % dnaModulus;
+    uint newDna = (myZombie.dna + _targetDna) / 2;
+    if (keccak256(_species) == keccak256("kitty")) {
+      newDna = newDna - newDna % 100 + 99;
+    }
+    _createZombie("NoName", newDna);
+  }
+
+  function feedOnKitty(uint _zombieId, uint _kittyId) public {
+    uint kittyDna;
+    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+    feedAndMultiply(_zombieId, kittyDna, "kitty");
+  }
+}
+
+```
+
 ### 소유 가능한 컨트랙트
 모든 사람이 우리의 컨트랙트를 업데이트할 수 없도록, 컨트랙트를 대상으로 특별한 권리를 가지는 소유자가 있음을 의미한다.
 
@@ -63,12 +111,112 @@ contract Ownable {
 * 컨트랙트가 생성되면 `owner`에 컨트랙트를 **배포한 사람** 을 대입한다.
 * 특정 함수들에 대해 오직 **소유자만 접근** 할 수 있도록 제한한다.
 * 새로운 소유자에게 해당 컨트랙트의 **소유권을 옮길 수 있도록** 한다.
+* `onlyOwner` 제어자를 함수에 추가하면, **오직 컨트렉트 소유자** 만 해당 함수 호출이 가능하다.
 
 대부분의 솔리디티 DApp들은 `Ownable`컨트랙트를 복사/붙여넣기 하면서 시작한다. 그리고 첫 컨트랙트는 이 컨트랙트를 상속하여 만든다.
 
 참고
 * **생성자(Constructor) :** 컨트랙트가 생성될 때 딱 한 번만 실행된다. 컨트랙트와 동일 이름을 가진다.
 * **함수 제어자(Function Modifier) :** 다른 함수들에 대한 접근을 제어하기 위한 일종의 유사 함수다. 보통 함수 실행 전의 요구사항 충족 여부를 확인하는 데에 사용한다.
+
+``` javascript
+pragma solidity ^0.4.19;
+
+//import Ownable.sol
+import "./Ownable.sol";
+
+//Ownable 컨트렉트를 상속한다.
+//이로써, ZombieFactory를 상속하는 ZombieFeeding 도 ownable 해진다.
+//상속관계: ZombieFeeding -> ZombieFactory -> Ownable
+contract ZombieFactory is Ownable{
+
+    event NewZombie(uint zombieId, string name, uint dna);
+
+    uint dnaDigits = 16;
+    uint dnaModulus = 10 ** dnaDigits;
+
+    struct Zombie {
+        string name;
+        uint dna;
+    }
+
+    Zombie[] public zombies;
+
+    mapping (uint => address) public zombieToOwner;
+    mapping (address => uint) ownerZombieCount;
+
+    function _createZombie(string _name, uint _dna) internal {
+        uint id = zombies.push(Zombie(_name, _dna)) - 1;
+        zombieToOwner[id] = msg.sender;
+        ownerZombieCount[msg.sender]++;
+        NewZombie(id, _name, _dna);
+    }
+
+    function _generateRandomDna(string _str) private view returns (uint) {
+        uint rand = uint(keccak256(_str));
+        return rand % dnaModulus;
+    }
+
+    function createRandomZombie(string _name) public {
+        require(ownerZombieCount[msg.sender] == 0);
+        uint randDna = _generateRandomDna(_name);
+        randDna = randDna - randDna % 100;
+        _createZombie(_name, randDna);
+    }
+
+}
+```
+```javascript
+pragma solidity ^0.4.19;
+
+import "./zombiefactory.sol";
+
+contract KittyInterface {
+  function getKitty(uint256 _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+  );
+}
+
+contract ZombieFeeding is ZombieFactory {
+
+  KittyInterface kittyContract;
+
+  //해당 함수에 onlyOwner 제어자 추가
+  //해당 함수 호출 시, onlyOwner 코드 먼저 실행
+  //onlyOwner의 _; 부분에서 해당 함수로 되돌아와서 코드 실행
+  //이로써 컨트랙트 소유자만 해당 함수를 호출할 수 있게돼고, 더이상 아무나 크립토키티의 주소를 바꿀 수 없다.
+  function setKittyContractAddress(address _address) external onlyOwner{
+    kittyContract = KittyInterface(_address);
+  }
+
+  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) public {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    Zombie storage myZombie = zombies[_zombieId];
+    _targetDna = _targetDna % dnaModulus;
+    uint newDna = (myZombie.dna + _targetDna) / 2;
+    if (keccak256(_species) == keccak256("kitty")) {
+      newDna = newDna - newDna % 100 + 99;
+    }
+    _createZombie("NoName", newDna);
+  }
+
+  function feedOnKitty(uint _zombieId, uint _kittyId) public {
+    uint kittyDna;
+    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+    feedAndMultiply(_zombieId, kittyDna, "kitty");
+  }
+
+}
+```
 
 ### 가스(Gas)
 *"이더리움 DApp이 사용하는 연료"*
@@ -97,6 +245,16 @@ contract Ownable {
 또한, 동일한 데이터 타입은 하나로 묶어놓는 것이 좋다.
 `uint c; uint32 a; uint32 b;` 의 경우, `uint32` 필드가 묶여있다.
 
+`zombiefactory.sol`의 `Zombie` struct를 `uint32` 필드가 묶일 수 있도록 붙여서 data를 추가했다.
+```javascript
+struct Zombie {
+        string name;
+        uint dna;
+        uint32 level;
+        uint32 readyTime;
+    }
+```
+
 ### 시간 단위
 솔리디티는 시간을 다룰 수 있는 단위계를 기본적으로 제공한다.
 
@@ -106,6 +264,58 @@ contract Ownable {
 유닉스 타임은 전통적으로 32비트 숫자로 저장된다. 따라서 2038년 부터 문제를 일으킬 것이므로, 20년 이상 운영되길 원한다면 64비트 숫자를 써야하고, 이때 가스 비용 또한 고려해야한다.
 
 솔리디티는 또한 `seconds`, `minutes`, `hours`, `days`, `weeks`, `years` 같은 **시간 단위** 를 포함한다. 이들은 그에 해당하는 길이 만큼의 초 단위 `uint` 숫자로 변환된다. `1 hours`와 같이 사용한다.
+
+```javascript
+//zombiefactory.sol
+pragma solidity ^0.4.19;
+
+import "./ownable.sol";
+
+contract ZombieFactory is Ownable {
+
+    event NewZombie(uint zombieId, string name, uint dna);
+
+    uint dnaDigits = 16;
+    uint dnaModulus = 10 ** dnaDigits;
+    //하루로 cooldownTime 초기화
+    uint cooldownTime = 1 days;
+
+    struct Zombie {
+        string name;
+        uint dna;
+        uint32 level;
+        uint32 readyTime;
+    }
+
+    Zombie[] public zombies;
+
+    mapping (uint => address) public zombieToOwner;
+    mapping (address => uint) ownerZombieCount;
+
+    function _createZombie(string _name, uint _dna) internal {
+        //update된 Zombie struct에 맞도록 level과 readyTime을 push 해준다.
+        //이때, now는 uint256을 반환해서 uint32()를 표기해야한다.
+        uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now+cooldownTime))) - 1;
+        zombieToOwner[id] = msg.sender;
+        ownerZombieCount[msg.sender]++;
+        NewZombie(id, _name, _dna);
+    }
+
+    function _generateRandomDna(string _str) private view returns (uint) {
+        uint rand = uint(keccak256(_str));
+        return rand % dnaModulus;
+    }
+
+    function createRandomZombie(string _name) public {
+        require(ownerZombieCount[msg.sender] == 0);
+        uint randDna = _generateRandomDna(_name);
+        randDna = randDna - randDna % 100;
+        _createZombie(_name, randDna);
+    }
+
+}
+
+```
 
 ### 구조체를 인수로 전달
 `private` 또는 `internal` 함수에 인수로서 **구조체의 storage 포인터** 를 전달할 수 있다.
@@ -118,6 +328,68 @@ function _doStuff(Zombie storage _zombie) internal {
 ### Public 함수와 보안
 `public`과 `external` 함수는 특수한 제어자를 갖지 않는 이상, 어떤 사용자든 이 함수들을 호출하고 자신들이 원하는 모든 데이터를 함수에 전달할 수 있다.
 따라서 보안 점검을 위해 이 함수들을 검사하고, 사용자들이 이들을 남용할 수 있는 방법을 생각해봐야한다. 함수를 `internal`로 만드는 것도 한 가지 예다.
+
+```javascript
+//zombiefeeding.sol
+pragma solidity ^0.4.19;
+
+import "./zombiefactory.sol";
+
+contract KittyInterface {
+  function getKitty(uint256 _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+  );
+}
+
+contract ZombieFeeding is ZombieFactory {
+
+  KittyInterface kittyContract;
+
+  function setKittyContractAddress(address _address) external onlyOwner {
+    kittyContract = KittyInterface(_address);
+  }
+  //Zombie 구조체를 인자로 가지는 두 메소드 정의
+  function _triggerCooldown(Zombie storage _zombie) internal {
+    _zombie.readyTime = uint32(now + cooldownTime);
+  }
+
+  function _isReady(Zombie storage _zombie) internal view returns (bool) {
+      return (_zombie.readyTime <= now);
+  }
+
+  //해당 함수를 internal로 바꿔서, 누구나 feed 할 수 없도록 함
+  function feedAndMultiply(uint _zombieId, uint _targetDna, string _species) internal {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    Zombie storage myZombie = zombies[_zombieId];
+    //myZombie가 준비가되면 이하 코드 실행
+    require(_isReady(myZombie));
+    _targetDna = _targetDna % dnaModulus;
+    uint newDna = (myZombie.dna + _targetDna) / 2;
+    if (keccak256(_species) == keccak256("kitty")) {
+      newDna = newDna - newDna % 100 + 99;
+    }
+    _createZombie("NoName", newDna);
+    //myZombie가 cooldown할 시간을 갖도록 함
+    _triggerCooldown(myZombie);
+  }
+
+  function feedOnKitty(uint _zombieId, uint _kittyId) public {
+    uint kittyDna;
+    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+    feedAndMultiply(_zombieId, kittyDna, "kitty");
+  }
+
+}
+```
 
 ### 인수를 가지는 함수 제어자
 ``` javascript 예시코드
@@ -146,7 +418,7 @@ function driveCar(uint _userId) public olderThan(16, _userId) {
 `view`함수가 동일 컨트랙트 내에 있는 다른 함수에서 **내부적** 으로 호출되는 경우에는 가스가 소모된다. 다른 함수가 이더리움에 **트랜잭션** 을 생성하기 때문이다.
 
 ### 메모리에 배열 선언하기
-`storage`데이터를 사용하는 것은 비싼 연산이다. (특히 쓰기 연산) 해당 데이터를 쓰거나 바꿀 때마다 수천 ㄱ의 노드들이 그들의 하드 드라이브에 데이터를 저장해야하기 때문이다.
+`storage`데이터를 사용하는 것은 비싼 연산이다. (특히 쓰기 연산) 해당 데이터를 쓰거나 바꿀 때마다 수천 개의 노드들이 그들의 하드 드라이브에 데이터를 저장해야하기 때문이다.
 
 비용을 최소화 하기위해, 정말 필요한 경우가 아니면 `storage`데이터를 사용하지 않는 것이 좋다. 이를 위해 때때로는 겉보기에 비효율적으로 보이는 프로그래밍 구성이 필요하다. 어떤 배열에서 내용을 빠르게 찾기 위해, 단순히 변수에 저장하는 것 대신 **함수가 호출될 때마다 배열을 `memory`에 다시 만드는 것** 이 한 가지 예시이다.
 
@@ -177,6 +449,59 @@ function getZombiesByOwner(address _owner) external view returns (uint[]) {
 * **Solution**
 `view` 함수는 외부 호출 시 가스를 소모하지 않기 때문에, `for`반복문을 사용하여 좀비 배열의 모든 요소에 접근하여 **특정 사용자의 좀비들로 구성된 배열** 을 만들 수 있을 것이다. 이렇게 되면 `transfer` 함수는 훨씬 비용을 적게 쓰게된다.
 
+```javascript
+//zombiehelper.sol
+pragma solidity ^0.4.19;
+
+import "./zombiefeeding.sol";
+
+contract ZombieHelper is ZombieFeeding {
+
+  //인자를 가지는 함수 제어자
+  //기준 _level 이상인 지 확인하는 제어자
+  modifier aboveLevel(uint _level, uint _zombieId) {
+    require(zombies[_zombieId].level >= _level);
+    _;
+  }
+
+  //zombie의 이름을 바꾸는 함수
+  function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    zombies[_zombieId].name = _newName;
+  }
+
+  //zombie의 dna를 바꾸는 함수
+  function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    zombies[_zombieId].dna = _newDna;
+  }
+
+  //사용자의 전체 좀비군대를 반환하는 함수
+  //추후에, 만약 사용자들의 프로필 페이지에 그들의 전체 군대를 표시하고 싶다면, 이 함수를 web3.js에서 호출하면 된다.
+  //view 함수 : gas 소비 없음
+  function getZombiesByOwner(address _owner) external view returns(uint[]) {
+    //ownerZombieCount Mapping을 이용하여 사용자가 가진 모든 좀비 개 찾음.
+    //result: 사용자의 모든 좀비를 담을 배열
+    uint[] memory result = new uint[](ownerZombieCount[_owner]);
+    //result index 추적
+    uint counter = 0;
+
+    //for 반복문을 통해 우리 DApp 안에 있는 모든 좀비들에 접근하고,
+    //그들의 소유자가 _owner인지 비교하여 확인한 후,
+    //조건에 맞는 좀비들을 result 배열에 추가한 후 반환
+    for(uint i=0; i<zombies.length; i++){
+      if(zombieToOwner[i] == _owner){
+        //_owner과 일치하면 좀비 id 추가
+        result[counter] = i;  
+        counter++;
+      }
+
+    }
+    return result;
+  }
+
+}
+```
 
 ### web.js 나중에 공부하기~!
 
