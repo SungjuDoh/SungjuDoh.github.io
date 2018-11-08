@@ -168,7 +168,57 @@ contract ZombieBattle is ZombieHelper {
 }
 
 ```
-### 공통 로직 구조 개선하기
+### 공통 로직 구조 개선하기 6,7 공통구조는 require
+작성한 코드 중 `changeName()`, `changeDna()`, `feedMultiply` 에 호출자와 `_zombieId`의 소유자인지 확인하는 코드가 공통적으로 들어간다. 이를 `modifer`를 추가 정의하여 코드를 *refactoring* 한다.
+```javascript
+modifier ownerOf(uint _zombieId) {
+   require(msg.sender == zombieToOwner[_zombieId]);
+   _;
+ }
+```
+
+### 공격 기능 추가하기 - 승리, 패배
+공격 기능을 추가함과 동시에, 좀비들이 얼마나 이기고 졌는지 추적함으로서 "좀비 순위표"를 유지할 수 있다.
+DApp에서는 다양한 방식으로 해당 데이터를 저장할 수 있다.
+* 개별적인 매핑
+* 순위표 구조체
+* `Zombie` 구조체 자체에 추가
+
+간결함을 유지하기 위해 `Zombie`구조체에 상태를 저장하는 변수를 추가한다.
+```javascript
+//zombiefactory.sol
+struct Zombie {
+  string name;
+  uint dna;
+  uint32 level;
+  uint32 readyTime;
+  uint16 winCount;
+  uint16 lossCount;
+}
+```
+
+다음으로 `attack`함수를 통해
+```javascript
+// zombieattack.sol
+function attack(uint _zombieId, uint _targetId) external ownerOf(_zombieId) {
+  // Zombie storage의 포인터를 얻어서 나와 적 좀비의 상호작용이 쉽도록한다.
+  Zombie storage myZombie = zombies[_zombieId];
+  Zombie storage enemyZombie = zombies[_targetId];
+  uint rand = randMod(100); // 전투 결과를 결정하는 난수
+  // 승리
+  if (rand <= attackVictoryProbability) {
+    myZombie.winCount++;
+    myZombie.level++;
+    enemyZombie.lossCount++;
+    feedAndMultiply(_zombieId, enemyZombie.dna, "zombie");  // 섭취한 적의 dna와 자신의 dna가 결합되어 새로운 좀비탄생
+  } else {  // 패배
+    myZombie.lossCount++;
+    enemyZombie.winCount++;
+  }
+  _triggerCooldown(myZombie); // 해당 좀비는 하루에 한 번만 공격 가능
+}
+
+```
 
 ### web.js 나중에 공부하기~!
 
