@@ -144,7 +144,6 @@ uint random = uint(keccak256(now, msg.sender, randNonce)) % 100;
 
 이더리움에서 난수를 안전하게 만드는 한 가지 방법은 외부의 난수 함수에 접근할 수 있도록 **오라클** (이더리움 외부에서 데이터를 받아오는 안전한 방법 중 하나)을 사용하는 것이다.
 
-@@나중에 더채우기
 ```javascript
 //zombieattack.sol
 import "./zombiehelper.sol";
@@ -168,6 +167,8 @@ contract ZombieBattle is ZombieHelper {
 }
 
 ```
+
+
 ### 공통 로직 구조 개선하기 6,7 공통구조는 require
 작성한 코드 중 `changeName()`, `changeDna()`, `feedMultiply` 에 호출자와 `_zombieId`의 소유자인지 확인하는 코드가 공통적으로 들어간다. 이를 `modifer`를 추가 정의하여 코드를 *refactoring* 한다.
 ```javascript
@@ -176,6 +177,7 @@ modifier ownerOf(uint _zombieId) {
    _;
  }
 ```
+
 
 ### 공격 기능 추가하기 - 승리, 패배
 공격 기능을 추가함과 동시에, 좀비들이 얼마나 이기고 졌는지 추적함으로서 "좀비 순위표"를 유지할 수 있다.
