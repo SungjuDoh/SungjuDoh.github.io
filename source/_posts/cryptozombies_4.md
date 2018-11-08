@@ -170,7 +170,7 @@ contract ZombieBattle is ZombieHelper {
 
 
 ### 공통 로직 구조 개선하기 6,7 공통구조는 require
-작성한 코드 중 `changeName()`, `changeDna()`, `feedMultiply` 에 호출자와 `_zombieId`의 소유자인지 확인하는 코드가 공통적으로 들어간다. 이를 `modifer`를 추가 정의하여 코드를 *refactoring* 한다.
+작성한 코드 중 `changeName()`, `changeDna()`, `feedMultiply` 에 호출자와 `_zombieId`의 소유자인지 확인하는 코드가 공통적으로 들어간다. 이를 `modifer`를 추가 정의하여 코드를 **refactoring** 한다.
 ```javascript
 modifier ownerOf(uint _zombieId) {
    require(msg.sender == zombieToOwner[_zombieId]);
