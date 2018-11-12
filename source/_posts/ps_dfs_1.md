@@ -1,0 +1,87 @@
+---
+title: 백준1167. 트리의 지름
+categories:
+- Problem Solving
+- DFS
+tags:
+- algorithm
+- DFS
+- tree
+---
+### 문제
+트리의 지름이란, 트리에서 임의의 두 점 사이의 거리 중 가장 긴 것을 말한다. 트리의 지름을 구하는 프로그램을 작성하시오.
+
+* 입력
+트리가 입력으로 주어진다. 먼저 첫 번째 줄에서는 트리의 정점의 개수 V가 주어지고 (2≤V≤100,000)둘째 줄부터 V개의 줄에 걸쳐 간선의 정보가 다음과 같이 주어진다. (정점 번호는 1부터 V까지 매겨져 있다고 생각한다)
+
+먼저 정점 번호가 주어지고, 이어서 연결된 간선의 정보를 의미하는 정수가 두 개씩 주어지는데, 하나는 정점번호, 다른 하나는 그 정점까지의 거리이다. 예를 들어 네 번째 줄의 경우 정점 3은 정점 1과 거리가 2인 간선으로 연결되어 있고, 정점 4와는 거리가 3인 간선으로 연결되어 있는 것을 보여준다. 각 줄의 마지막에는 -1이 입력으로 주어진다. 주어지는 거리는 모두 10,000 이하의 자연수이다.
+
+```
+5
+1 3 2 -1
+2 4 4 -1
+3 1 2 4 3 -1
+4 2 4 3 3 5 6 -1
+5 4 6 -1
+```
+
+* 출력
+첫째 줄에 트리의 지름을 출력한다.
+```
+11
+```
+
+* 풀이
+  * 루트에서 가장 먼 노드 (u)
+    u에서 가장 먼 노드 (v)
+    트리의 지름 = u~v
+  * DFS 사용 : 가장 먼 노드와 가장 긴 거리 구하기
+  * 트리구현 : vector<pair<int,int>> tree[#node]
+
+* 코드
+```c++
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+#include<string.h>
+using namespace std;
+// 가장 먼 거리와 먼 노드
+int ans, far;
+
+void dfs(vector<pair<int, int>> *t, int *visited, int now, int dToNow) {
+	visited[now] = 1;
+  // 가장 먼 거리 update
+	if (dToNow > ans)	ans = dToNow, far = now;
+	for (auto i : t[now]) {
+		if (visited[i.first])	continue;
+    // 한 단계 더 멀리 진행
+		dfs(t, visited, i.first, dToNow + i.second);
+	}
+	return;
+}
+int main(void) {
+	int v;
+	scanf("%d", &v);
+	vector<pair<int, int>> tree[100002];
+
+	for (int i = 0; i <v; i++) {
+		int from, dis, to;
+		scanf("%d %d", &from, &to);
+		while (to != -1) {
+			scanf("%d", &dis);
+			tree[from].push_back(make_pair(to, dis));
+			scanf("%d", &to);
+		}
+	}
+
+	int *visited = (int*)malloc(sizeof(int)*(v + 1));
+	memset(visited, 0, sizeof(int)*(v + 1));
+	dfs(tree, visited, 1, 0);
+  // 앞선 dfs는 ans는 u를 찾기위한 기준변수였으므로 다시 초기화하여 사용
+	ans = 0;
+	memset(visited, 0, sizeof(int)*(v + 1));
+	dfs(tree, visited, far, ans);
+  // 다음 dfs에서 v를 찾으면, ans는 곧 최종정답인 u~v
+	printf("%d", ans);
+}
+```
