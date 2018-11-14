@@ -1,5 +1,6 @@
 ---
 title: Lv.1
+thumbnail: https://mybroadband.co.za/news/wp-content/uploads/2017/05/Etherium-1.jpg
 categories:
 - BlockChain
 - Crypto Zombies (Solidity)
@@ -20,7 +21,7 @@ a.k.a. 이더리움 블록체인에 기록되는 것으로 데이터베이스에
 * uint(부호 없는 정수, >= 0)
 * int(부호 있는 정수
 
-  
+
 실제로 uint는 uint256를 의미한다. (256비트의 부호 없는 정수)
 uint8, uint16, uint32 등 도 있다.
 

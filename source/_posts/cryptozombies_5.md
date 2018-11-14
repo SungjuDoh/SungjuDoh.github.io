@@ -1,5 +1,6 @@
 ---
 title: Lv.5
+thumbnail: https://mybroadband.co.za/news/wp-content/uploads/2017/05/Etherium-1.jpg
 categories:
 - BlockChain
 - Crypto Zombies (Solidity)

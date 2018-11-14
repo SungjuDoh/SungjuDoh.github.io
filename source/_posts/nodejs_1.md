@@ -1,5 +1,6 @@
 ---
 title: nodejs blah blah
+thumbnail: https://cdn-images-1.medium.com/max/2000/1*q9ww_u32hhpMaA-Q_s1ujw.png
 categories:
 - Web
 - Nodejs
